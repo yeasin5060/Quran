@@ -148,10 +148,14 @@ const Page = () => {
             ← Previous
         </button>
         <button
-          onClick={() => router.push(`/surah/${Number(id) + 1}`)}
-          disabled={Number(id) === 114}
-          className="bg-green-600 text-white shadow-lg px-5 py-3 rounded-full hover:bg-green-700 cursor-pointer">
-            Next →
+            onClick={() => {router.push(`/surah/${Number(id) - 1}`);window.scrollTo({
+                    top: 0,
+                    behavior: "smooth",
+                });
+            }}
+            disabled={Number(id) === 114}
+            className="bg-green-600 text-white shadow-lg px-5 py-3 rounded-full hover:bg-green-700 cursor-pointer">
+                Next →
         </button>
       </div>
     </div>
