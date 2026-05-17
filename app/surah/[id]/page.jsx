@@ -148,7 +148,7 @@ const Page = () => {
             ← Previous
         </button>
         <button
-            onClick={() => {router.push(`/surah/${Number(id) - 1}`);window.scrollTo({
+            onClick={() => {router.push(`/surah/${Number(id) + 1}`);window.scrollTo({
                     top: 0,
                     behavior: "smooth",
                 });
