@@ -1,22 +1,41 @@
-import React from 'react'
+"use client";
+
+import { useAppContext } from "@/context/SurahContext";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 const Hero = () => {
-  return (
-     <div className="w-full px-4 py-10 md:py-16 flex flex-col items-center justify-center text-center">
 
-      {/* Logo */}
-      <div className="mb-6">
-        <h1 className='text-4xl font-bold text-black'>Quran.com</h1>
+  const router = useRouter();
+
+  const [search, setSearch] = useState("");
+
+  const {allSurahs} = useAppContext()
+  const filteredSurahs = allSurahs.filter((surah) =>
+    surah.englishName.toLowerCase().includes(search.toLowerCase())
+  );
+
+  return (
+    <section className="w-full min-h-[80vh] flex flex-col items-center justify-center px-4 py-12 bg-gradient-to-b from-green-50 to-white">
+
+      {/* Heading */}
+      <div className="text-center mb-8">
+        <h1 className="text-5xl md:text-6xl font-extrabold text-green-700 mb-3">
+          Quran.com
+        </h1>
+        <p className="text-gray-600 text-sm md:text-lg max-w-2xl mx-auto">
+          Read, search, and explore the Holy Quran with Arabic,
+          English translation, audio, and tafsir.
+        </p>
       </div>
 
       {/* Search Box */}
-      <div className="w-full max-w-xl">
-        <form className="flex items-center bg-gray-100 rounded-full px-4 py-3 shadow-sm">
-          
+      <div className="w-full max-w-2xl relative">
+        <form className=" flex items-center bg-white borde border-gray-200 rounded-full px-5 py-3 shadow-lg focus-within:ring-2 focus-within:ring-green-500 transition">
           {/* Search Icon */}
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="w-5 h-5 text-gray-500 mr-2"
+            className="w-5 h-5 text-gray-400 mr-3"
             fill="currentColor"
             viewBox="0 0 24 24"
           >
@@ -26,41 +45,48 @@ const Hero = () => {
           {/* Input */}
           <input
             type="search"
-            placeholder="Search the Quran..."
-            className="flex-1 bg-transparent outline-none text-sm md:text-base"
-          />
+            placeholder="Search Surah, Ayah..."
+            className="flex-1 bg-transparent outline-none text-sm md:text-base text-gray-700 placeholder:text-gray-400" value={search} 
+            onChange={(e) => setSearch(e.target.value)}/>
 
-          {/* Mic Button */}
-          <button type="button" className="ml-2">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="w-5 h-5 text-gray-500"
-              viewBox="0 0 24 24"
-            >
-              <path d="M12.304 14.946a3.573 3.573 0 0 0 3.558-3.566V3.566A3.573 3.573 0 0 0 12.304 0a3.573 3.573 0 0 0-3.56 3.566v7.814a3.573 3.573 0 0 0 3.56 3.566" />
-            </svg>
-          </button>
+          {search && (
+            <div className="bg-white shadow-lg rounded-xl mt-3 max-h-60 overflow-y-auto absolute bottom-20 left-50 z-50">
+              {filteredSurahs.map((surah) => (
+                <div key={surah.number} onClick={() => router.push(`/surah/${surah.number}`)} className="p-3 hover:bg-gray-100 cursor-pointer flex justify-between">
+                  <span>
+                    {surah.number}. {surah.englishName}
+                  </span>
+                  <span className="text-xs text-gray-500">
+                    {surah.numberOfAyahs} ayahs
+                  </span>
+                </div>
+              ))}
+            </div>
+          )}
         </form>
       </div>
 
       {/* Buttons */}
-      <div className="flex flex-col sm:flex-row gap-3 mt-6 w-full max-w-md">
-        
-        {/* Navigate Button */}
-        <button className="flex items-center justify-center gap-2 bg-teal-500 hover:bg-teal-600 text-white px-4 py-2 rounded-full w-full transition">
-          <span>📖</span>
-          <span className="text-sm md:text-base">Navigate Quran</span>
+      <div className="flex flex-col sm:flex-row gap-4 mt-8 w-full max-w-md">
+
+        {/* Navigate Quran */}
+        <button className="flex items-center justify-center gap-2 bg-green-600 hover:bg-green-700 text-white px-5 py-3 rounded-full w-full transition shadow-md">
+          <span className="text-lg">📖</span>
+          <span className="font-medium">
+            Navigate Quran
+          </span>
         </button>
 
-        {/* Popular Button */}
-        <button className="flex items-center justify-center gap-2 bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded-full w-full transition">
-          <span>🔥</span>
-          <span className="text-sm md:text-base">Popular</span>
+        {/* Popular */}
+        <button className=" flex items-center justify-center gap-2 bg-white border hover:bg-gray-100 px-5 py-3 rounded-full w-full transition shadow-sm">
+          <span className="text-lg">🔥</span>
+          <span className="font-medium">
+            Popular
+          </span>
         </button>
-
       </div>
-    </div>
-  )
-}
+    </section>
+  );
+};
 
-export default Hero
+export default Hero;

@@ -23,17 +23,6 @@ const Navbar = () => {
           </Link>
         </div>
 
-        {/* MIDDLE SEARCH */}
-        <div className="flex-1 max-w-2xl">
-          <div className="relative">
-            <input type="text" placeholder="Search Surah..." className=" w-full border border-gray-100 rounded-full
-                py-2.5 pl-12 pr-4 outline-none focus:ring-2 focus:ring-green-500 bg-gray-50"/>
-            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500">
-              🔍
-            </span>
-          </div>
-        </div>
-
         {/* RIGHT SIDE */}
         <div className="flex items-center gap-3">
           {/* Language */}
