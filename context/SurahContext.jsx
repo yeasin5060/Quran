@@ -10,26 +10,26 @@ export const useAppContext = () => {
 }
 
 export const SurahProvider = ({ children }) => {
-    const [allSurahs, setAllSurahs] = useState([]);
-    const router = useRouter();
+  const [allSurahs, setAllSurahs] = useState([]);
+  const router = useRouter();
 
-  const getSurahs = async () => {
+  const getAllSurahs = async () => {
     try {
-        const res = await fetch(`https://api.alquran.cloud/v1/surah`);
-        const data = await res.json();
+      const res = await fetch(`https://api.alquran.cloud/v1/surah`);
+      const data = await res.json();
   
-        if (data.code === 200) {
-            setAllSurahs(data.data);
-        } else {
-            toast.error("Failed to load data");
-        }
-        } catch (err) {
-            toast.error("Something went wrong!",err.message);
-        }
+      if (data.code === 200) {
+        setAllSurahs(data.data);
+      } else {
+        toast.error("Failed to load data");
+      }
+      } catch (err) {
+        toast.error("Something went wrong!",err.message);
+      }
     };
   
    useEffect(() => {
-       getSurahs();
+      getAllSurahs();
     }, []);
   return (
     <SurahContext.Provider value={{ allSurahs, setAllSurahs,router}}>
