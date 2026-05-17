@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 
+
 const Page = () => {
 
     const { id } = useParams();
@@ -30,16 +31,6 @@ const Page = () => {
     useEffect(() => {
         getSurah();
     }, [id]);
-
-    const playAudio = (url) => {
-        if (currentAudio) {
-            currentAudio.pause();
-        }
-
-        const audio = new Audio(url);
-        audio.play();
-        setCurrentAudio(audio);
-    };
 
     const stopAudio = () => {
         if (currentAudio) {
@@ -92,7 +83,7 @@ const Page = () => {
                 arabic.ayahs.map((ayah, index) => (
                     <div key={ayah.number} className="bg-white rounded-xl shadow-sm p-5">
                         {/* TOP */}
-                        <div className="flex justify-between items-center mb-4">
+                        <div className="flex justify-between items-center mb-4 gap-10">
                             {/* AYAH NUMBER */}
                             <span className=" bg-green-600 text-white  w-8 h-8 flex items-center justify-center  rounded-full text-sm">
                                 {ayah.numberInSurah}
@@ -120,7 +111,7 @@ const Page = () => {
 
             {language === "english" &&
                 english.ayahs.map((ayah) => (
-                    <div key={ayah.number} className="bg-white rounded-xl shadow-sm p-5 flex justify-between">
+                    <div key={ayah.number} className="bg-white rounded-xl shadow-sm p-5 flex justify-between gap-10">
                         {/* ENGLISH TEXT */}
                         <p className="text-2xl leading-loose">
                             {ayah.text}
