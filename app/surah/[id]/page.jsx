@@ -58,7 +58,7 @@ const Page = () => {
             {arabic.name}
             </h1>
             <h2 className="text-2xl font-semibold">
-            {arabic.englishName}
+            {arabic.englishName} (<span>{arabic.englishNameTranslation}</span>)
             </h2>
 
             {/* LANGUAGE BUTTONS */}
